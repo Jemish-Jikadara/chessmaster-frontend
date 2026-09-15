@@ -298,16 +298,42 @@ blackTime: blackTimeRef.current,
       }
       if (g.turn() === 'w') {
         setWhiteTime((t) => {
-          const next = t - 1;
-          if (next <= 0) finishGame('Time Out', 'Black wins on time.');
-          return Math.max(0, next);
-        });
+  const next = Math.max(0, t - 1);
+  whiteTimeRef.current = next;
+
+  saveLocalGame({
+    moves: gameRef.current.history({ verbose: true }),
+    whiteTime: next,
+    blackTime: blackTimeRef.current,
+    increment: incrementRef.current,
+    isBot: botModeRef.current,
+    bot: selectedBotRef.current,
+    playerColor: playerColorRef.current,
+    gameStarted: true
+  });
+
+  if (next <= 0) finishGame('Time Out', 'Black wins on time.');
+  return next;
+});
       } else {
         setBlackTime((t) => {
-          const next = t - 1;
-          if (next <= 0) finishGame('Time Out', 'White wins on time.');
-          return Math.max(0, next);
-        });
+  const next = Math.max(0, t - 1);
+  blackTimeRef.current = next;
+
+  saveLocalGame({
+    moves: gameRef.current.history({ verbose: true }),
+    whiteTime: whiteTimeRef.current,
+    blackTime: next,
+    increment: incrementRef.current,
+    isBot: botModeRef.current,
+    bot: selectedBotRef.current,
+    playerColor: playerColorRef.current,
+    gameStarted: true
+  });
+
+  if (next <= 0) finishGame('Time Out', 'White wins on time.');
+  return next;
+});
       }
     }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -403,9 +429,11 @@ blackTime: blackTimeRef.current,
   refreshBoardState();
 
   if (saved.isBot) initStockfish();
-
+  if (saved.gameStarted) {
+  startTimer();
+}
   return true;
-}, [refreshBoardState, initStockfish]);
+}, [refreshBoardState, initStockfish,startTimer]);
 
   useEffect(() => () => {
     if (timerRef.current) clearInterval(timerRef.current);

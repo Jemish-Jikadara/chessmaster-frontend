@@ -92,6 +92,25 @@ const Play = () => {
   setScreen('game');
   // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
+useEffect(() => {
+  let isRefreshing = false;
+
+  const handleBeforeUnload = () => {
+    isRefreshing = true;
+  };
+
+  window.addEventListener('beforeunload', handleBeforeUnload);
+
+  return () => {
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+
+    if (!isRefreshing) {
+      chess.clearLocalGame?.();
+    }
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   // Bot data (32 bots, 100-3200 rating)
   const bots = [
