@@ -53,7 +53,7 @@ function App() {
               <Route path="edit-profile" element={<EditProfile />} />
               <Route path="settings" element={<Settings />} />
               <Route path="friends" element={<Friends />} />
-              <Route path="replay/:id" element={<Replay />} />
+              <Route path="game/:id" element={<Replay />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />
