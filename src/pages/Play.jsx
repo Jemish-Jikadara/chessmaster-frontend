@@ -24,6 +24,7 @@ const Play = () => {
           totalMoves: moveHistory.length,
           moves: moveHistory,
         });
+        console.log("Game saved:", response.data);
         setSavedGameId(response.data?.game?._id || null);
       } catch (err) {
         console.error('Auto-save game failed:', err);
