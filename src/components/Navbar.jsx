@@ -337,7 +337,7 @@ const Navbar = () => {
           background: rgba(248,113,113,0.1);
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .cm-nav-inner {
             height: 62px;
             padding: 0 14px;
