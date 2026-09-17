@@ -19,15 +19,15 @@ const Navbar = () => {
             <span>ChessMaster</span>
           </Link>
 
-          <button
-            id="menuBtn"
-            className="cm-menu-btn"
-            type="button"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            ☰
-          </button>
+         <button
+  id="menuBtn"
+  className="cm-menu-btn"
+  type="button"
+  onClick={toggleMenu}
+  aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+>
+  {menuOpen ? '✕' : '☰'}
+</button>
 
           <div
             id="navLinks"
