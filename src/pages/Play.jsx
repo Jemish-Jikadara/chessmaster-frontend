@@ -665,6 +665,30 @@ useEffect(() => {
           color: var(--gold-light);
           background: rgba(212, 175, 55, 0.05);
         }
+          .game-over-card {
+  position: relative;
+}
+
+.game-over-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-gold);
+  background: rgba(10, 9, 8, 0.5);
+  color: var(--text-muted);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.game-over-close:hover {
+  border-color: var(--gold-primary);
+  color: var(--gold-light);
+  background: rgba(212, 175, 55, 0.1);
+}
 
         /* Game Layout */
         .game-layout {
@@ -1301,6 +1325,14 @@ useEffect(() => {
                 {chess.gameOver && chess.gameOverInfo && (
                   <div id="gameOverModal" className="game-over-overlay" style={{ display: 'grid' }}>
                     <div className="game-over-card">
+                      <button
+    type="button"
+    className="game-over-close"
+    onClick={chess.closeGameOver}
+    aria-label="Close game over"
+  >
+    ✕
+  </button>
                       <div className="go-kicker">Game Over</div>
                       <h2 id="gameOverTitle">{chess.gameOverInfo.title}</h2>
                       <p id="gameOverMessage">{chess.gameOverInfo.message}</p>
