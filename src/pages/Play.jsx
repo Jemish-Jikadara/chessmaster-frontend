@@ -13,7 +13,7 @@ const Play = () => {
     onGameOver: async ({ winner, history: moveHistory }) => {
       if (!moveHistory.length) return;
       try {
-        await api.post('/api/games', {
+       const response = await api.post('/api/games', {
           whitePlayer: savedRef.current.white || 'White Player',
           blackPlayer: savedRef.current.black || 'Black Player',
           winner,
@@ -24,6 +24,7 @@ const Play = () => {
           totalMoves: moveHistory.length,
           moves: moveHistory,
         });
+        setSavedGameId(response.data?.game?._id || null);
       } catch (err) {
         console.error('Auto-save game failed:', err);
       }
@@ -34,6 +35,7 @@ const Play = () => {
   const [screen, setScreen] = useState('mode');
   const [isBotMode, setIsBotMode] = useState(false);
   const [selectedBot, setSelectedBot] = useState(null);
+  const [savedGameId, setSavedGameId] = useState(null);
   const [pickedColor, setPickedColor] = useState('w');
   const [selectedTime, setSelectedTime] = useState(null);
   const [whitePlayer, setWhitePlayer] = useState(user?.username || '');
@@ -269,6 +271,7 @@ useEffect(() => {
   const botColor = () => (savedRef.current.color === 'w' ? 'b' : 'w');
 
   const handlePlayAgain = () => {
+    setSavedGameId(null);
      chess.clearLocalGame?.();
     setScreen('mode');
     setIsBotMode(false);
@@ -1324,6 +1327,15 @@ useEffect(() => {
                         >
                           New Game
                         </button>
+                        {savedGameId && (
+  <button
+    type="button"
+    className="action-btn secondary"
+    onClick={() => navigate(`/replay/${savedGameId}`)}
+  >
+    ▶ Replay
+  </button>
+)}
                         <button
                           type="button"
                           className="action-btn secondary"
