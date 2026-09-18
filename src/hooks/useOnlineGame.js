@@ -43,6 +43,10 @@ export default function useOnlineGame({ user } = {}) {
   const drawOfferMoveCountRef = useRef(-99);
 
   const { roomId, playerColor, opponent, timeControl } = savedRef.current;
+  
+  useEffect(() => {
+  savedGameRef.current = false;
+}, [roomId]);
 
   useEffect(() => {
     gameOverRef.current = gameOver;
