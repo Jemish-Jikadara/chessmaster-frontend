@@ -114,10 +114,10 @@ const pageStyles = `
   align-items:center;
   justify-content:center;
   gap:8px;
-  min-height:44px;
-  padding:0 18px;
+  min-height:48px;
+  padding:0 20px;
   border-radius:8px;
-  font-size:14px;
+  font-size:15px;
   font-weight:850;
   text-decoration:none;
   border:1px solid transparent;
@@ -151,61 +151,52 @@ const pageStyles = `
   border-color:rgba(255,255,255,.2);
 }
 
-.cm2-btn-danger{
-  color:#ff8585;
-  background:rgba(255,255,255,.06);
-  border-color:rgba(255,100,100,.25);
-}
-
-.cm2-btn-danger:hover{
-  background:rgba(255,100,100,.12);
-  border-color:rgba(255,100,100,.45);
-}
-
-/* Profile banner */
-.profile-banner{
+/* Profile header */
+.profile-header{
   position:relative;
-  padding:72px 0 40px;
-  border-bottom:1px solid var(--h-line);
-  background:
-    linear-gradient(135deg,rgba(129,182,76,0.10) 0%,rgba(129,182,76,0.04) 50%,transparent 100%);
-  overflow:hidden;
+  padding:88px 0 72px;
 }
 
-.profile-banner::before{
+.profile-header::before{
   content:'';
   position:absolute;
-  width:600px;height:600px;
-  background:radial-gradient(circle,rgba(129,182,76,0.12) 0%,transparent 70%);
-  top:-200px;right:-100px;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size:58px 58px;
+  mask-image:linear-gradient(to bottom,#000,transparent 78%);
   pointer-events:none;
 }
 
-.banner-inner{
-  max-width:1100px;
-  margin:0 auto;
+.profile-top{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(260px,0.9fr);
+  gap:56px;
+  align-items:center;
   position:relative;
   z-index:1;
 }
 
-.avatar-row{
-  display:flex;
-  align-items:flex-end;
-  gap:24px;
-  margin-bottom:20px;
-  flex-wrap:wrap;
+@media (max-width:960px){
+  .profile-top{
+    grid-template-columns:1fr;
+    gap:38px;
+    text-align:center;
+  }
 }
 
 .profile-avatar{
-  width:100px;height:100px;
+  width:120px;height:120px;
   border-radius:50%;
   background:linear-gradient(135deg,var(--h-green-2),var(--h-green));
   display:flex;align-items:center;justify-content:center;
-  font-size:40px;font-weight:900;color:#10180e;
+  font-size:48px;font-weight:900;color:#10180e;
   border:4px solid var(--h-bg);
   box-shadow:0 0 0 2px rgba(129,182,76,0.4),0 8px 32px rgba(129,182,76,0.25);
   flex-shrink:0;
   overflow:hidden;
+  margin:0 auto;
 }
 
 .profile-avatar-img{
@@ -214,29 +205,25 @@ const pageStyles = `
   display:block;
 }
 
-.avatar-info{
-  flex:1;
-  padding-bottom:4px;
-}
-
-.profile-username{
-  font-size:clamp(1.8rem,4vw,2.6rem);
-  font-weight:900;
+.profile-info h1{
+  margin:0 0 8px;
   color:var(--h-text);
-  margin:0 0 4px;
-  letter-spacing:-0.02em;
+  font-size:clamp(2rem,5vw,2.8rem);
+  line-height:1.02;
+  font-weight:900;
 }
 
 .profile-fullname{
   font-size:14px;
   color:var(--h-muted);
-  margin-bottom:10px;
+  margin-bottom:14px;
 }
 
 .profile-meta{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
+  justify-content:center;
 }
 
 .meta-pill{
@@ -245,165 +232,58 @@ const pageStyles = `
   gap:4px;
   font-size:12px;
   color:var(--h-muted);
-  background:rgba(255,255,255,.03);
-  border:1px solid var(--h-line);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.09);
   padding:4px 10px;
   border-radius:100px;
   font-weight:800;
 }
 
 .profile-bio{
-  font-size:14px;
+  max-width:620px;
+  margin:22px auto 0;
   color:var(--h-muted);
-  line-height:1.6;
-  margin-top:12px;
-  max-width:560px;
-  padding-bottom:20px;
-}
-
-.profile-name-row{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.edit-profile-btn{
-  width:36px;height:36px;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:50%;
-  text-decoration:none;
-  font-size:18px;
-  background:rgba(129,182,76,.08);
-  border:1px solid rgba(129,182,76,.25);
-  color:var(--h-green-2);
-  transition:.25s;
-}
-
-.edit-profile-btn:hover{
-  background:rgba(129,182,76,.18);
-  transform:rotate(-10deg) scale(1.08);
-  border-color:var(--h-green);
+  font-size:16px;
+  line-height:1.7;
 }
 
 .profile-actions{
   display:flex;
-  gap:10px;
+  gap:12px;
   flex-wrap:wrap;
-  margin-left:auto;
-  align-self:flex-start;
-  padding-top:8px;
+  justify-content:center;
+  margin-top:26px;
 }
 
-.profile-tabs{
-  display:flex;
-  gap:0;
-  border-top:1px solid var(--h-line);
-  margin-top:4px;
-}
-
-.tab{
-  padding:14px 20px;
-  font-size:13px;
-  font-weight:800;
-  color:var(--h-muted);
-  cursor:pointer;
-  border-bottom:2px solid transparent;
-  transition:all 0.2s;
-  text-decoration:none;
-}
-
-.tab.active{
-  color:var(--h-text);
-  border-bottom-color:var(--h-green);
-}
-
-.tab:hover{
-  color:var(--h-text);
-}
-
-/* Body */
-.profile-body{
-  max-width:1100px;
-  margin:0 auto;
-  padding:28px 24px 80px;
-  display:grid;
-  grid-template-columns:1fr 290px;
-  gap:24px;
-}
-
-@media (max-width:900px){
-  .profile-body{
-    grid-template-columns:1fr;
-  }
-}
-
-.sec-title{
-  font-size:15px;
-  font-weight:850;
-  color:var(--h-text);
-  margin-bottom:14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.sec-title a{
-  font-size:12px;
-  color:var(--h-green-2);
-  text-decoration:none;
-  font-weight:800;
-}
-
-.sec-title a:hover{
-  color:var(--h-green);
-}
-
-/* Ratings */
+/* Ratings & stats */
 .ratings-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-bottom:24px;
+  gap:16px;
+  margin-top:34px;
 }
 
-@media (max-width:560px){
+@media (max-width:768px){
   .ratings-grid{
     grid-template-columns:1fr;
   }
 }
 
 .rating-card{
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:14px;
-  padding:20px 16px;
-  transition:border-color 0.2s,transform 0.2s;
   position:relative;
-  overflow:hidden;
-}
-
-.rating-card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:2px;
-  opacity:0;
-  transition:opacity 0.2s;
-  background:linear-gradient(90deg,var(--h-green-2),var(--h-green));
+  height:100%;
+  padding:22px;
+  border-radius:12px;
+  background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 20px 44px rgba(0,0,0,.18);
+  transition:transform .2s ease, border-color .2s ease, background .2s ease;
 }
 
 .rating-card:hover{
-  border-color:rgba(129,182,76,.3);
-  transform:translateY(-2px);
-}
-
-.rating-card:hover::before{
-  opacity:1;
-}
-
-.rc-icon{
-  font-size:18px;
-  margin-bottom:10px;
+  transform:translateY(-4px);
+  border-color:rgba(129,182,76,.34);
+  background:linear-gradient(180deg,rgba(255,255,255,.095),rgba(255,255,255,.048));
 }
 
 .rc-mode{
@@ -412,57 +292,66 @@ const pageStyles = `
   text-transform:uppercase;
   letter-spacing:0.1em;
   font-weight:800;
-  margin-bottom:4px;
+  margin-bottom:6px;
 }
 
 .rc-val{
-  font-size:30px;
+  font-size:32px;
   font-weight:900;
-  margin-bottom:2px;
   color:#ffffff;
+  margin-bottom:4px;
 }
 
 .rc-sub{
-  font-size:11px;
+  font-size:12px;
   color:var(--h-muted);
 }
 
-/* Stats */
 .stats-row{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-bottom:28px;
+  gap:16px;
+  margin-top:34px;
+}
+
+@media (max-width:768px){
+  .stats-row{
+    grid-template-columns:1fr;
+  }
 }
 
 .stat-box{
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.09);
+  position:relative;
+  height:100%;
+  padding:22px;
   border-radius:12px;
-  padding:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 20px 44px rgba(0,0,0,.18);
   text-align:center;
 }
 
 .sb-val{
-  font-size:26px;
+  font-size:32px;
   font-weight:900;
   color:#ffffff;
+  margin-bottom:6px;
 }
 
 .sb-label{
-  font-size:11px;
+  font-size:12px;
   color:var(--h-muted);
   text-transform:uppercase;
   letter-spacing:0.08em;
-  margin-top:4px;
   font-weight:800;
 }
 
 /* Table */
 .table-wrap{
+  margin-top:34px;
   background:rgba(255,255,255,.045);
   border:1px solid rgba(255,255,255,.09);
-  border-radius:14px;
+  border-radius:12px;
   overflow:hidden;
 }
 
@@ -477,7 +366,7 @@ const pageStyles = `
 }
 
 .profile-body th{
-  padding:11px 14px;
+  padding:14px 16px;
   font-size:11px;
   font-weight:800;
   text-transform:uppercase;
@@ -487,7 +376,7 @@ const pageStyles = `
 }
 
 .profile-body td{
-  padding:11px 14px;
+  padding:14px 16px;
   font-size:13px;
   color:var(--h-text);
   border-bottom:1px solid rgba(255,255,255,.05);
@@ -507,7 +396,7 @@ const pageStyles = `
 }
 
 .bw,.bb,.bd{
-  padding:2px 8px;
+  padding:4px 10px;
   border-radius:100px;
   font-size:11px;
   font-weight:800;
@@ -532,11 +421,11 @@ const pageStyles = `
 }
 
 .btn-watch{
-  padding:3px 10px;
-  background:rgba(255,255,255,.03);
-  border:1px solid var(--h-line);
-  border-radius:6px;
-  color:var(--h-muted);
+  padding:6px 12px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:8px;
+  color:var(--h-green-2);
   font-size:12px;
   text-decoration:none;
   transition:all 0.2s;
@@ -544,8 +433,8 @@ const pageStyles = `
 
 .btn-watch:hover{
   background:rgba(129,182,76,.12);
-  border-color:rgba(129,182,76,.4);
-  color:var(--h-green-2);
+  border-color:rgba(129,182,76,.35);
+  color:#ffffff;
 }
 
 .empty-row{
@@ -554,7 +443,20 @@ const pageStyles = `
   padding:32px !important;
 }
 
-/* Right column */
+/* Side cards */
+.profile-body{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:24px;
+  margin-top:34px;
+}
+
+@media (max-width:960px){
+  .profile-body{
+    grid-template-columns:1fr;
+  }
+}
+
 .right-col{
   display:flex;
   flex-direction:column;
@@ -562,17 +464,20 @@ const pageStyles = `
 }
 
 .side-card{
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:16px;
-  padding:20px;
+  position:relative;
+  height:100%;
+  padding:22px;
+  border-radius:12px;
+  background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 20px 44px rgba(0,0,0,.18);
 }
 
 .side-card-title{
-  font-size:12px;
-  font-weight:850;
+  margin:0 0 16px;
   color:var(--h-text);
-  margin-bottom:14px;
+  font-size:13px;
+  font-weight:850;
   text-transform:uppercase;
   letter-spacing:0.12em;
 }
@@ -581,7 +486,7 @@ const pageStyles = `
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:7px 0;
+  padding:8px 0;
   border-bottom:1px solid rgba(255,255,255,.05);
 }
 
@@ -612,49 +517,16 @@ const pageStyles = `
   aspect-ratio:1;
 }
 
-/* Responsive */
-@media (max-width:768px){
-  .avatar-row{
-    flex-direction:column;
-    align-items:flex-start;
+/* Responsive tweaks */
+@media (max-width:560px){
+  .cm2-wrap{
+    width:min(100% - 24px,1180px);
   }
-  .profile-actions{
-    margin-left:0;
-    width:100%;
+  .profile-header{
+    padding:46px 0 44px;
   }
-  .profile-tabs{
-    overflow-x:auto;
-  }
-  .tab{
-    white-space:nowrap;
-    padding:12px 14px;
-    font-size:12px;
-  }
-  .ratings-grid{
-    grid-template-columns:repeat(2,1fr) !important;
-  }
-  .stats-row{
-    grid-template-columns:repeat(3,1fr);
-  }
-  .profile-body table{
-    font-size:12px;
-  }
-  .profile-body th,
-  .profile-body td{
-    padding:8px 10px;
-  }
-}
-
-@media (max-width:480px){
-  .ratings-grid{
-    grid-template-columns:1fr !important;
-  }
-  .profile-avatar{
-    width:70px;height:70px;
-    font-size:28px;
-  }
-  .profile-username{
-    font-size:1.6rem;
+  .cm2-section{
+    padding:56px 0;
   }
 }
 `;
@@ -681,9 +553,9 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <main className="h-page" style={{ alignItems:'center', justifyContent:'center' }}>
+      <main className="h-page" style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <div className="cm2-wrap" style={{ textAlign:'center' }}>
-          <p style={{ color:var(--h-green-2), fontSize:16 }}>Loading profile...</p>
+          <p style={{ color:'var(--h-green-2)', fontSize:16 }}>Loading profile...</p>
         </div>
       </main>
     );
@@ -691,7 +563,7 @@ const Profile = () => {
 
   if (error || !user) {
     return (
-      <main className="h-page" style={{ alignItems:'center', justifyContent:'center' }}>
+      <main className="h-page" style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <div className="cm2-wrap" style={{ textAlign:'center' }}>
           <p style={{ color:'#ff8585', fontSize:16 }}>{error || 'Profile not found.'}</p>
         </div>
@@ -706,10 +578,33 @@ const Profile = () => {
       <style dangerouslySetInnerHTML={{ __html: pageStyles }} />
 
       <main className="h-page" style={{ display:'block', padding:0 }}>
-        {/* Banner */}
-        <div className="profile-banner">
-          <div className="banner-inner">
-            <div className="avatar-row">
+        {/* Profile Header */}
+        <section className="profile-header">
+          <div className="cm2-wrap profile-top">
+            <div className="profile-info">
+              <span className="cm2-eyebrow">
+                <span className="sq"></span>
+                Player Profile
+              </span>
+              <h1 className="cm2-h1">
+                {user.username}
+                <span className="cm2-accent">.</span>
+              </h1>
+              {user.fullName && <div className="profile-fullname">{user.fullName}</div>}
+              <div className="profile-meta">
+                {user.country && <span className="meta-pill">Country: {user.country}</span>}
+                <span className="meta-pill">{user.gamesPlayed || 0} games</span>
+                {user.createdAt && (
+                  <span className="meta-pill">
+                    Joined {new Date(user.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </span>
+                )}
+                <span className="meta-pill">{user.friends ? user.friends.length : 0} friends</span>
+              </div>
+              {user.bio && <p className="cm2-sub" style={{ maxWidth:'none' }}>{user.bio}</p>}
+            </div>
+
+            <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:16 }}>
               <div className="profile-avatar">
                 {user.profileImage ? (
                   <img src={user.profileImage} alt="Profile" className="profile-avatar-img" />
@@ -717,165 +612,159 @@ const Profile = () => {
                   user.username?.charAt(0)?.toUpperCase()
                 )}
               </div>
-              <div className="avatar-info">
-                <div className="profile-name-row">
-                  <h1 className="profile-username">{user.username}</h1>
-                  <Link to="/edit-profile" className="edit-profile-btn" title="Edit Profile">✏️</Link>
-                </div>
-                {user.fullName && <div className="profile-fullname">{user.fullName}</div>}
-                <div className="profile-meta">
-                  {user.country && <span className="meta-pill">Country: {user.country}</span>}
-                  <span className="meta-pill">{user.gamesPlayed || 0} games</span>
-                  {user.createdAt && (
-                    <span className="meta-pill">
-                      Joined {new Date(user.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                    </span>
-                  )}
-                  <span className="meta-pill">{user.friends ? user.friends.length : 0} friends</span>
-                </div>
-              </div>
               <div className="profile-actions">
                 <Link to="/play" className="cm2-btn cm2-btn-primary">Play</Link>
                 <Link to="/settings" className="cm2-btn cm2-btn-secondary">Settings</Link>
-                <button type="button" className="cm2-btn cm2-btn-danger" onClick={logout}>Logout</button>
+                <button type="button" className="cm2-btn cm2-btn-secondary" onClick={logout}>Logout</button>
               </div>
-            </div>
-
-            {user.bio && <p className="profile-bio">{user.bio}</p>}
-
-            <div className="profile-tabs">
-              <span className="tab active">Overview</span>
-              <span className="tab">Games</span>
-              <Link className="tab" to="/friends">Friends</Link>
-              <Link className="tab" to="/profile/status">Status</Link>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Body */}
-        <div className="profile-body">
-          <div>
-            <div className="sec-title" style={{ marginBottom: '14px' }}>Ratings</div>
+        <div className="cm2-wrap"><div className="cm2-divider"></div></div>
+
+        {/* Ratings & Stats */}
+        <section className="cm2-section">
+          <div className="cm2-wrap">
+            <span className="cm2-eyebrow">
+              <span className="sq"></span>
+              Performance
+            </span>
+            <h2 className="cm2-h2">Your chess ratings</h2>
+            <p className="cm2-sub">Rapid, Blitz and Bullet ratings based on your games.</p>
+
             <div className="ratings-grid">
-              <div className="rating-card rc-1">
-                <div className="rc-icon">Rapid</div>
+              <div className="rating-card">
                 <div className="rc-mode">Rapid</div>
-                <div className="rc-val brass">{user.rapidRating || 1200}</div>
+                <div className="rc-val">{user.rapidRating || 1200}</div>
                 <div className="rc-sub">Rating</div>
               </div>
-              <div className="rating-card rc-2">
-                <div className="rc-icon">Blitz</div>
+              <div className="rating-card">
                 <div className="rc-mode">Blitz</div>
-                <div className="rc-val sage">{user.blitzRating || 1200}</div>
+                <div className="rc-val">{user.blitzRating || 1200}</div>
                 <div className="rc-sub">Rating</div>
               </div>
-              <div className="rating-card rc-3">
-                <div className="rc-icon">Bullet</div>
+              <div className="rating-card">
                 <div className="rc-mode">Bullet</div>
-                <div className="rc-val rust">{user.bulletRating || 1200}</div>
+                <div className="rc-val">{user.bulletRating || 1200}</div>
                 <div className="rc-sub">Rating</div>
               </div>
             </div>
 
             <div className="stats-row">
               <div className="stat-box">
-                <div className="sb-val green">{user.wins || 0}</div>
+                <div className="sb-val">{user.wins || 0}</div>
                 <div className="sb-label">Wins</div>
               </div>
               <div className="stat-box">
-                <div className="sb-val red">{user.losses || 0}</div>
+                <div className="sb-val">{user.losses || 0}</div>
                 <div className="sb-label">Losses</div>
               </div>
               <div className="stat-box">
-                <div className="sb-val gray">{user.draws || 0}</div>
+                <div className="sb-val">{user.draws || 0}</div>
                 <div className="sb-label">Draws</div>
               </div>
             </div>
-
-            <div id="games">
-              <div className="sec-title">Recent Games</div>
-              <div className="table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>White</th>
-                      <th>Black</th>
-                      <th>Winner</th>
-                      <th>Moves</th>
-                      <th>Date</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(!games || games.length === 0) ? (
-                      <tr><td colSpan="7" className="empty-row">No games yet, go play!</td></tr>
-                    ) : (
-                      games.map((game, index) => (
-                        <tr key={game._id}>
-                          <td style={{ color: 'var(--h-muted)' }}>{index + 1}</td>
-                          <td className="td-p">{game.whitePlayer}</td>
-                          <td className="td-p">{game.blackPlayer}</td>
-                          <td>
-                            {game.winner === 'white' ? (
-                              <span className="bw">White</span>
-                            ) : game.winner === 'black' ? (
-                              <span className="bb">Black</span>
-                            ) : (
-                              <span className="bd">Draw</span>
-                            )}
-                          </td>
-                          <td>{game.totalMoves}</td>
-                          <td>{new Date(game.createdAt).toLocaleDateString()}</td>
-                          <td><Link to={`/game/${game._id}`} className="btn-watch">View</Link></td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </div>
+        </section>
 
-          <div className="right-col">
-            <div className="side-card">
-              <div className="side-card-title">Account</div>
-              <div className="info-row">
-                <span className="ir-label">Email</span>
-                <span className="ir-value" style={{ color: 'var(--h-muted)', fontSize: '11px' }}>{user.email}</span>
-              </div>
-              <div className="info-row">
-                <span className="ir-label">Role</span>
-                <span className="ir-value">{user.role}</span>
-              </div>
-              <div className="info-row">
-                <span className="ir-label">Total Games</span>
-                <span className="ir-value">{user.gamesPlayed || 0}</span>
-              </div>
-              {user.dateOfBirth && (
-                <div className="info-row">
-                  <span className="ir-label">Birthday</span>
-                  <span className="ir-value">{new Date(user.dateOfBirth).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+        <div className="cm2-wrap"><div className="cm2-divider"></div></div>
+
+        {/* Recent Games & Side Info */}
+        <section className="cm2-section">
+          <div className="cm2-wrap">
+            <span className="cm2-eyebrow">
+              <span className="sq"></span>
+              Match history
+            </span>
+            <h2 className="cm2-h2">Recent games</h2>
+            <p className="cm2-sub">Your latest played games with results and quick replay links.</p>
+
+            <div className="profile-body">
+              <div>
+                <div className="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>White</th>
+                        <th>Black</th>
+                        <th>Winner</th>
+                        <th>Moves</th>
+                        <th>Date</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(!games || games.length === 0) ? (
+                        <tr><td colSpan="7" className="empty-row">No games yet, go play!</td></tr>
+                      ) : (
+                        games.map((game, index) => (
+                          <tr key={game._id}>
+                            <td style={{ color: 'var(--h-muted)' }}>{index + 1}</td>
+                            <td className="td-p">{game.whitePlayer}</td>
+                            <td className="td-p">{game.blackPlayer}</td>
+                            <td>
+                              {game.winner === 'white' ? (
+                                <span className="bw">White</span>
+                              ) : game.winner === 'black' ? (
+                                <span className="bb">Black</span>
+                              ) : (
+                                <span className="bd">Draw</span>
+                              )}
+                            </td>
+                            <td>{game.totalMoves}</td>
+                            <td>{new Date(game.createdAt).toLocaleDateString()}</td>
+                            <td><Link to={`/game/${game._id}`} className="btn-watch">View</Link></td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
                 </div>
-              )}
-            </div>
+              </div>
 
-            <div className="side-card">
-              <div className="side-card-title">Board Theme</div>
-              <div className="mini-board">
-                {Array.from({ length: 16 }, (_, i) => (
-                  <div key={i} className="mb-sq" style={{ background: (Math.floor(i / 4) + i) % 2 === 0 ? t[0] : t[1] }} />
-                ))}
+              <div className="right-col">
+                <div className="side-card">
+                  <div className="side-card-title">Account</div>
+                  <div className="info-row">
+                    <span className="ir-label">Email</span>
+                    <span className="ir-value" style={{ color: 'var(--h-muted)', fontSize: '11px' }}>{user.email}</span>
+                  </div>
+                  <div className="info-row">
+                    <span className="ir-label">Role</span>
+                    <span className="ir-value">{user.role}</span>
+                  </div>
+                  <div className="info-row">
+                    <span className="ir-label">Total Games</span>
+                    <span className="ir-value">{user.gamesPlayed || 0}</span>
+                  </div>
+                  {user.dateOfBirth && (
+                    <div className="info-row">
+                      <span className="ir-label">Birthday</span>
+                      <span className="ir-value">{new Date(user.dateOfBirth).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="side-card">
+                  <div className="side-card-title">Board Theme</div>
+                  <div className="mini-board">
+                    {Array.from({ length: 16 }, (_, i) => (
+                      <div key={i} className="mb-sq" style={{ background: (Math.floor(i / 4) + i) % 2 === 0 ? t[0] : t[1] }} />
+                    ))}
+                  </div>
+                  <div style={{ fontSize: '12px', color: 'var(--h-muted)', textAlign: 'center', textTransform: 'capitalize', marginBottom: '10px' }}>
+                    {user.boardTheme || 'classic'}
+                  </div>
+                  <Link to="/settings" style={{ display: 'block', textAlign: 'center', fontSize: '12px', color: 'var(--h-green-2)', textDecoration: 'none', fontWeight:800 }}>
+                    Change theme →
+                  </Link>
+                </div>
               </div>
-              <div style={{ fontSize: '12px', color: 'var(--h-muted)', textAlign: 'center', textTransform: 'capitalize', marginBottom: '10px' }}>
-                {user.boardTheme || 'classic'}
-              </div>
-              <Link to="/settings" style={{ display: 'block', textAlign: 'center', fontSize: '12px', color: 'var(--h-green-2)', textDecoration: 'none' }}>
-                Change theme →
-              </Link>
             </div>
           </div>
-        </div>
+        </section>
       </main>
     </>
   );
