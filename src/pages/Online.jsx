@@ -34,7 +34,7 @@ const Online = () => {
       sessionStorage.removeItem('onlineWhiteTime');
       sessionStorage.removeItem('onlineBlackTime');
       setSearching(false);
-      navigate('/online/play');
+      window.location.href = '/online/play';
     };
 
     socket.on('waitingForOpponent', onWaiting);
