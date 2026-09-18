@@ -49,7 +49,6 @@ const Navbar = () => {
             {user ? (
               <div
                 className="cm-profile-wrap"
-                onMouseLeave={() => setProfileMenuOpen(false)}
               >
                 <button
                   type="button"
@@ -338,76 +337,116 @@ const Navbar = () => {
           color: #ff9c9c;
           background: rgba(248,113,113,0.1);
         }
+       /* ====== TABLET & MOBILE (≤ 768px) ====== */
+/* ====== TABLET & MOBILE (≤ 768px) ====== */
+@media (max-width: 768px) {
+  .cm-nav-inner {
+    height: 62px;
+    padding: 0 16px;
+  }
 
-        /* ====== TABLET & MOBILE (≤ 980px) ====== */
-        @media (max-width: 980px) {
-          .cm-nav-inner {
-            height: 62px;
-            padding: 0 16px;
-          }
+  .cm-menu-btn {
+    display: inline-flex;
+  }
 
-          /* Show hamburger */
-          .cm-menu-btn {
-            display: inline-flex;
-          }
+  .cm-nav-links {
+    position: absolute;
+    top: 62px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px 16px 16px;
+    background: rgba(15, 20, 17, 0.97);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 22px 40px rgba(0,0,0,0.28);
+    display: none;
+  }
 
-          /* Hide links by default, show only when .cm-open */
-          .cm-nav-links {
-            position: absolute;
-            top: 62px;
-            left: 0;
-            right: 0;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 8px;
-            padding: 12px 16px 16px;
-            background: rgba(15, 20, 17, 0.97);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 22px 40px rgba(0,0,0,0.28);
-            display: none;
-          }
+  .cm-nav-links.cm-open {
+    display: flex;
+  }
 
-          .cm-nav-links.cm-open {
-            display: flex;
-          }
+  .cm-nav-link {
+    width: 100%;
+    min-height: 42px;
+    justify-content: flex-start;
+    padding: 0 14px;
+  }
 
-          .cm-nav-link,
-          .cm-register-btn {
-            width: 100%;
-            justify-content: flex-start;
-            min-height: 44px;
-          }
+  .cm-auth-links {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
 
-          .cm-auth-links {
-            width: 100%;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 8px;
-          }
+  .cm-auth-links .cm-nav-link,
+  .cm-register-btn {
+    width: 100%;
+  }
 
-          .cm-profile-wrap {
-            width: 100%;
-            margin-left: 0;
-          }
+  .cm-profile-wrap {
+    width: 100%;
+    margin-left: 0;
+  }
 
-          .cm-profile-btn {
-            width: 100%;
-            border-radius: 10px;
-            justify-content: flex-start;
-          }
+  .cm-profile-btn {
+    width: 100%;
+    justify-content: flex-start;
+  }
 
-          .cm-profile-name {
-            flex: 1;
-            text-align: left;
-          }
+  .cm-profile-menu {
+    position: static;
+    width: 100%;
+    min-width: 100%;
+    margin-top: 8px;
+  }
+}
+/* ===== FORCE DESKTOP NAV: 769px - 900px ===== */
+@media (min-width: 769px) and (max-width: 900px) {
+  .cm-menu-btn {
+    display: none !important;
+  }
 
-          .cm-profile-menu {
-            position: static;
-            min-width: 100%;
-            margin-top: 8px;
-          }
-        }
+  .cm-nav-links {
+    position: static !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 4px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 
+  .cm-nav-link {
+    width: auto !important;
+    min-height: 38px;
+    padding: 0 8px;
+    font-size: 13px;
+  }
+
+  .cm-auth-links {
+    flex-direction: row !important;
+    width: auto !important;
+  }
+
+  .cm-auth-links .cm-nav-link,
+  .cm-register-btn {
+    width: auto !important;
+  }
+
+  .cm-profile-wrap {
+    width: auto !important;
+    margin-left: 4px;
+  }
+
+  .cm-profile-btn {
+    width: auto !important;
+  }
+}
         /* Small mobile */
         @media (max-width: 480px) {
           .cm-nav-inner {
