@@ -14,35 +14,35 @@ const Navbar = () => {
     <>
       <nav className="cm-nav">
         <div className="cm-nav-inner">
-          <Link to="/" className="cm-brand" onClick={() => setMenuOpen(false)}>
+          <Link to="/" className="cm-brand" onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); }}>
             <span className="cm-brand-icon">♞</span>
             <span>ChessMaster</span>
           </Link>
 
-         <button
-  id="menuBtn"
-  className="cm-menu-btn"
-  type="button"
-  onClick={toggleMenu}
-  aria-label={menuOpen ? 'Close menu' : 'Open menu'}
->
-  {menuOpen ? '✕' : '☰'}
-</button>
+          <button
+            id="menuBtn"
+            className="cm-menu-btn"
+            type="button"
+            onClick={toggleMenu}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {menuOpen ? '✕' : '☰'}
+          </button>
 
           <div
             id="navLinks"
             className={`cm-nav-links ${menuOpen ? 'cm-open' : ''}`}
           >
-            <Link to="/" className="cm-nav-link" onClick={() => setMenuOpen(false)}>
+            <Link to="/" className="cm-nav-link" onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); }}>
               Home
             </Link>
-            <Link to="/play" className="cm-nav-link" onClick={() => setMenuOpen(false)}>
+            <Link to="/play" className="cm-nav-link" onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); }}>
               Play
             </Link>
-            <Link to="/leaderboard" className="cm-nav-link" onClick={() => setMenuOpen(false)}>
+            <Link to="/leaderboard" className="cm-nav-link" onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); }}>
               Leaderboard
             </Link>
-            <Link to="/about" className="cm-nav-link" onClick={() => setMenuOpen(false)}>
+            <Link to="/about" className="cm-nav-link" onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); }}>
               About
             </Link>
 
@@ -116,14 +116,14 @@ const Navbar = () => {
                 <Link
                   to="/login"
                   className="cm-nav-link"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); }}
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
                   className="cm-register-btn"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); }}
                 >
                   Register
                 </Link>
@@ -194,6 +194,7 @@ const Navbar = () => {
           font-size: 20px;
         }
 
+        /* Desktop: horizontal nav always visible */
         .cm-nav-links {
           display: flex;
           align-items: center;
@@ -305,6 +306,7 @@ const Navbar = () => {
           border: 1px solid rgba(255,255,255,0.11);
           border-radius: 12px;
           box-shadow: 0 24px 54px rgba(0,0,0,0.44);
+          z-index: 120;
         }
 
         .cm-profile-item {
@@ -337,29 +339,32 @@ const Navbar = () => {
           background: rgba(248,113,113,0.1);
         }
 
-        @media (max-width: 900px) {
+        /* ====== TABLET & MOBILE (≤ 980px) ====== */
+        @media (max-width: 980px) {
           .cm-nav-inner {
             height: 62px;
-            padding: 0 14px;
+            padding: 0 16px;
           }
 
+          /* Show hamburger */
           .cm-menu-btn {
             display: inline-flex;
           }
 
+          /* Hide links by default, show only when .cm-open */
           .cm-nav-links {
-            display: none;
             position: absolute;
             top: 62px;
             left: 0;
             right: 0;
             flex-direction: column;
             align-items: stretch;
-            gap: 6px;
-            padding: 12px 14px 16px;
+            gap: 8px;
+            padding: 12px 16px 16px;
             background: rgba(15, 20, 17, 0.97);
             border-bottom: 1px solid rgba(255,255,255,0.08);
             box-shadow: 0 22px 40px rgba(0,0,0,0.28);
+            display: none;
           }
 
           .cm-nav-links.cm-open {
@@ -370,14 +375,14 @@ const Navbar = () => {
           .cm-register-btn {
             width: 100%;
             justify-content: flex-start;
-            min-height: 42px;
+            min-height: 44px;
           }
 
           .cm-auth-links {
             width: 100%;
             flex-direction: column;
             align-items: stretch;
-            gap: 6px;
+            gap: 8px;
           }
 
           .cm-profile-wrap {
@@ -400,6 +405,40 @@ const Navbar = () => {
             position: static;
             min-width: 100%;
             margin-top: 8px;
+          }
+        }
+
+        /* Small mobile */
+        @media (max-width: 480px) {
+          .cm-nav-inner {
+            padding: 0 12px;
+          }
+
+          .cm-brand {
+            font-size: 17px;
+          }
+
+          .cm-brand-icon {
+            width: 32px;
+            height: 32px;
+            font-size: 20px;
+          }
+
+          .cm-menu-btn {
+            width: 38px;
+            height: 38px;
+            font-size: 18px;
+          }
+
+          .cm-nav-links {
+            top: 60px;
+            padding: 10px 12px 14px;
+          }
+
+          .cm-nav-link,
+          .cm-register-btn {
+            min-height: 42px;
+            font-size: 13px;
           }
         }
       `}</style>
