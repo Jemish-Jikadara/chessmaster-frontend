@@ -162,7 +162,7 @@ const pageStyles = `
   border-color:rgba(255,100,100,.45);
 }
 
-/* Profile banner - same structure, only theme colors updated */
+/* Profile banner */
 .profile-banner{
   position:relative;
   padding:72px 0 40px;
@@ -366,7 +366,7 @@ const pageStyles = `
   margin-bottom:24px;
 }
 
-@media (max-width:560px){
+@media (max-width:768px){
   .ratings-grid{
     grid-template-columns:1fr;
   }
@@ -435,6 +435,12 @@ const pageStyles = `
   margin-bottom:28px;
 }
 
+@media (max-width:768px){
+  .stats-row{
+    grid-template-columns:1fr;
+  }
+}
+
 .stat-box{
   background:rgba(255,255,255,.045);
   border:1px solid rgba(255,255,255,.09);
@@ -464,11 +470,13 @@ const pageStyles = `
   border:1px solid rgba(255,255,255,.09);
   border-radius:14px;
   overflow:hidden;
+  overflow-x:auto;
 }
 
 .profile-body table{
   width:100%;
   border-collapse:collapse;
+  min-width: 600px;
 }
 
 .profile-body thead{
@@ -613,17 +621,20 @@ const pageStyles = `
 }
 
 /* Responsive */
-@media (max-width:768px){
+@media (max-width:900px){
   .avatar-row{
     flex-direction:column;
-    align-items:flex-start;
+    align-items:center;
+    text-align:center;
   }
   .profile-actions{
     margin-left:0;
     width:100%;
+    justify-content:center;
   }
   .profile-tabs{
     overflow-x:auto;
+    justify-content:flex-start;
   }
   .tab{
     white-space:nowrap;
@@ -631,10 +642,10 @@ const pageStyles = `
     font-size:12px;
   }
   .ratings-grid{
-    grid-template-columns:repeat(2,1fr) !important;
+    grid-template-columns:1fr;
   }
   .stats-row{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:1fr;
   }
   .profile-body table{
     font-size:12px;
@@ -646,15 +657,18 @@ const pageStyles = `
 }
 
 @media (max-width:480px){
-  .ratings-grid{
-    grid-template-columns:1fr !important;
-  }
   .profile-avatar{
     width:70px;height:70px;
     font-size:28px;
   }
   .profile-username{
     font-size:1.6rem;
+  }
+  .banner-inner{
+    padding: 0 16px;
+  }
+  .profile-body{
+    padding: 20px 16px 60px;
   }
 }
 `;
@@ -745,15 +759,9 @@ const Profile = () => {
 
             <div className="profile-tabs">
               <span className="tab active">Overview</span>
-              <span className="tab" to="#games">
-                Games
-              </span>
-              <Link className="tab" to="/friends">
-                Friends
-              </Link>
-              <Link className="tab" to="/profile/status">
-                Status
-              </Link>
+              <span className="tab">Games</span>
+              <Link className="tab" to="/friends">Friends</Link>
+              <Link className="tab" to="/profile/status">Status</Link>
             </div>
           </div>
         </div>
