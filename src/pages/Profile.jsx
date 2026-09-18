@@ -231,7 +231,7 @@ const Profile = () => {
 
           <div className="profile-tabs">
             <span className="tab active">Overview</span>
-            <span className="tab">Games</span>
+            <span className="tab" to="#games">Games</span>
             <Link className="tab" to="/friends">Friends</Link>
             <Link className="tab" to="/profile/status">Status</Link>
           </div>
