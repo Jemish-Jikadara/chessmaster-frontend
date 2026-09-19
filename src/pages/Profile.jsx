@@ -283,7 +283,7 @@ const Profile = () => {
               <div className="sec-title">
   <span>{showAllGames ? 'All Games' : 'Recent Games'}</span>
 
-  {games.length > 10 && (
+  {games.length > 5 && (
     <a
       href="#games"
       onClick={(e) => {
@@ -312,7 +312,7 @@ const Profile = () => {
                     {(!games || games.length === 0) ? (
                       <tr><td colSpan="7" className="empty-row">No games yet, go play!</td></tr>
                     ) : (
-                     (showAllGames ? games : games.slice(0, 10)).map((game, index) => (
+                     (showAllGames ? games : games.slice(0, 5)).map((game, index) => (
                         <tr key={game._id}>
                           <td style={{ color: 'var(--h-muted)' }}>{index + 1}</td>
                           <td className="td-p">{game.whitePlayer}</td>
