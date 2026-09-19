@@ -18,6 +18,7 @@ const Profile = () => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showAllGames, setShowAllGames] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -230,15 +231,15 @@ const Profile = () => {
           {user.bio && <p className="profile-bio">{user.bio}</p>}
 
           <div className="profile-tabs">
-            <span className="tab active">Overview</span>
-            <span className="tab" to="#games">Games</span>
+            <a className="tab active" href="#overview">Overview</a>
+            <a className="tab" href="#games">Games</a>
             <Link className="tab" to="/friends">Friends</Link>
             <Link className="tab" to="/profile/status">Status</Link>
           </div>
         </div>
       </div>
 
-      <main>
+      <main id="overview">
         <div className="profile-body">
           <div>
             <div className="sec-title" style={{ marginBottom: '14px' }}>Ratings</div>
@@ -279,7 +280,21 @@ const Profile = () => {
             </div>
 
             <div id="games">
-              <div className="sec-title">Recent Games</div>
+              <div className="sec-title">
+  <span>{showAllGames ? 'All Games' : 'Recent Games'}</span>
+
+  {games.length > 10 && (
+    <a
+      href="#games"
+      onClick={(e) => {
+        e.preventDefault();
+        setShowAllGames((prev) => !prev);
+      }}
+    >
+      {showAllGames ? 'Show Less ←' : 'Show All →'}
+    </a>
+  )}
+</div>
               <div className="table-wrap">
                 <table>
                   <thead>
@@ -297,7 +312,7 @@ const Profile = () => {
                     {(!games || games.length === 0) ? (
                       <tr><td colSpan="7" className="empty-row">No games yet, go play!</td></tr>
                     ) : (
-                      games.map((game, index) => (
+                     (showAllGames ? games : games.slice(0, 10)).map((game, index) => (
                         <tr key={game._id}>
                           <td style={{ color: 'var(--h-muted)' }}>{index + 1}</td>
                           <td className="td-p">{game.whitePlayer}</td>
