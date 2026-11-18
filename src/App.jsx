@@ -22,6 +22,8 @@ import Online from './pages/Online';
 import Replay from './pages/Replay';
 import Status from './pages/Status';
 import CheckEmail from './pages/CheckEmail';
+import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function HomeWrapper() {
   const { user } = useAuth(); 
@@ -56,6 +58,8 @@ function App() {
               <Route path="settings" element={<Settings />} />
               <Route path="friends" element={<Friends />} />
               <Route path="game/:id" element={<Replay />} />
+              <Route path="terms-of-service" element={<TermsOfService />} />
+              <Route path="privacy-policy" element={<PrivacyPolicy />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />
