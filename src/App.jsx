@@ -46,6 +46,9 @@ function App() {
             <Route path="reset-password/:token" element={<ResetPassword />} />
             <Route path="leaderboard" element={<Leaderboard />} />
             <Route path="about" element={<About />} />
+            
+              <Route path="terms-of-service" element={<TermsOfService />} />
+              <Route path="privacy-policy" element={<PrivacyPolicy />} />
 
             {/* Protected Routes — PrivateRoute ke andar */}
             <Route element={<PrivateRoute />}>
@@ -58,8 +61,6 @@ function App() {
               <Route path="settings" element={<Settings />} />
               <Route path="friends" element={<Friends />} />
               <Route path="game/:id" element={<Replay />} />
-              <Route path="terms-of-service" element={<TermsOfService />} />
-              <Route path="privacy-policy" element={<PrivacyPolicy />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />
