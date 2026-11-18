@@ -16,7 +16,6 @@ const pageStyles = `
   overflow-x:hidden;
 }
 
-/* Animated grid backdrop */
 .h-page::before{
   content:'';
   position:fixed;
@@ -32,7 +31,6 @@ const pageStyles = `
   animation:h-grid 24s linear infinite;
 }
 
-/* Ambient glows */
 .h-page::after{
   content:'';
   position:fixed;
@@ -53,9 +51,7 @@ const pageStyles = `
 .h-page > *{ position:relative; z-index:1; }
 .h-page *{ box-sizing:border-box; }
 
-/* =========================================================
-   BUTTON (mirrors Home)
-   ========================================================= */
+/* BUTTON */
 .cm2-btn{
   display:inline-flex;
   align-items:center;
@@ -112,7 +108,6 @@ const pageStyles = `
   transform:none;
 }
 
-/* Corner brackets */
 .cm2-corners{ position:relative; }
 .cm2-corners::before,
 .cm2-corners::after{
@@ -133,9 +128,7 @@ const pageStyles = `
   border-left:0; border-top:0;
 }
 
-/* =========================================================
-   REGISTER WRAP + CARD
-   ========================================================= */
+/* REGISTER WRAP + CARD */
 .reg-wrap{
   flex:1;
   display:flex;
@@ -185,7 +178,6 @@ const pageStyles = `
     inset 0 0 60px rgba(0,229,255,.06);
 }
 
-/* HUD corner brackets on card */
 .reg-card::before,
 .reg-card::after{
   content:'';
@@ -198,9 +190,7 @@ const pageStyles = `
 .reg-card::before{ top:-2px; left:-2px; border-right:0; border-bottom:0; }
 .reg-card::after{ bottom:-2px; right:-2px; border-left:0; border-top:0; }
 
-/* =========================================================
-   STEPS INDICATOR
-   ========================================================= */
+/* STEPS INDICATOR - 3 steps now */
 .reg-steps{
   display:flex;
   align-items:center;
@@ -260,9 +250,7 @@ const pageStyles = `
   background:linear-gradient(90deg, rgba(0,229,255,.4), rgba(0,229,255,.12));
 }
 
-/* =========================================================
-   HEADINGS
-   ========================================================= */
+/* HEADINGS */
 .reg-kicker{
   display:inline-flex;
   align-items:center;
@@ -307,9 +295,7 @@ const pageStyles = `
   line-height:1.7;
 }
 
-/* =========================================================
-   ALERTS
-   ========================================================= */
+/* ALERTS */
 .reg-alert{
   padding:12px 16px;
   border-radius:6px;
@@ -334,9 +320,7 @@ const pageStyles = `
   box-shadow:inset 0 0 14px rgba(182,255,60,.1);
 }
 
-/* =========================================================
-   FORM
-   ========================================================= */
+/* FORM */
 .reg-form{
   display:flex;
   flex-direction:column;
@@ -404,9 +388,6 @@ const pageStyles = `
   text-shadow:0 0 10px rgba(0,229,255,.7);
 }
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
 @media (max-width:560px){
   .reg-wrap{
     padding:46px 18px;
@@ -438,7 +419,6 @@ const Register = () => {
 
   const [formData, setFormData] = useState({
     email: '',
-    // mobile: '',
     password: '',
     confirmPassword: '',
   });
@@ -454,7 +434,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('RSGISTER SUCCSESS');
     setError('');
     setSuccess('');
 
@@ -474,14 +453,25 @@ const Register = () => {
     try {
       const data = await register(formData);
 
+      // ✅ NEW: Email verification flow
+      if (data.needsEmailVerification) {
+        setSuccess('Account created! Redirecting to verification...');
+        setTimeout(() => {
+          navigate('/check-email', {
+            state: { email: data.email || formData.email }
+          });
+        }, 1000);
+        return;
+      }
+
+      // Legacy fallback (agar backend purana response bheje)
       if (data.setupToken) {
         localStorage.setItem('setupToken', data.setupToken);
       }
-
       setSuccess("Account created! Let's set up your profile...");
       setTimeout(() => navigate('/setup-profile'), 800);
     } catch (err) {
-      console.log("Registration error:", err);
+      console.log('Registration error:', err);
       setError(err?.response?.data?.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
@@ -495,7 +485,7 @@ const Register = () => {
       <main className="h-page">
         <div className="reg-wrap">
           <div className="reg-card">
-            {/* Steps Indicator */}
+            {/* Steps Indicator — 3 steps now */}
             <div className="reg-steps">
               <div className="reg-step-item">
                 <div className="reg-step-dot active">1</div>
@@ -503,26 +493,30 @@ const Register = () => {
               </div>
               <div className="reg-step-line"></div>
               <div className="reg-step-item">
-                <div className="reg-step-dot inactive">2</div>
+                <div className="reg-step-dot">2</div>
+                <span className="reg-step-label">Verify</span>
+              </div>
+              <div className="reg-step-line"></div>
+              <div className="reg-step-item">
+                <div className="reg-step-dot">3</div>
                 <span className="reg-step-label">Profile</span>
               </div>
             </div>
 
             <span className="reg-kicker">Player Registration</span>
             <h1 className="reg-title">Create Account</h1>
-            <p className="reg-sub">Enter your email and password to get started.</p>
+            <p className="reg-sub">
+              Enter your email and password. We'll send you a verification link.
+            </p>
 
-            {/* Error Message */}
             {error && (
               <div className="reg-alert reg-alert-error">{error}</div>
             )}
 
-            {/* Success Message */}
             {success && (
               <div className="reg-alert reg-alert-success">{success}</div>
             )}
 
-            {/* Register Form */}
             <form onSubmit={handleSubmit} className="reg-form">
               <label>
                 Email
@@ -535,18 +529,6 @@ const Register = () => {
                   required
                 />
               </label>
-
-              {/* <label>
-                Mobile Number
-                <input
-                  type="text"
-                  name="mobile"
-                  placeholder="Enter your mobile number"
-                  value={formData.mobile}
-                  onChange={handleChange}
-                  required
-                />
-              </label> */}
 
               <label>
                 Password

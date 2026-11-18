@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import api from '../api/axios';
 
 const pageStyles = `
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
@@ -16,7 +17,6 @@ const pageStyles = `
   overflow-x:hidden;
 }
 
-/* Animated grid backdrop */
 .h-page::before{
   content:'';
   position:fixed;
@@ -32,7 +32,6 @@ const pageStyles = `
   animation:h-grid 24s linear infinite;
 }
 
-/* Ambient glows */
 .h-page::after{
   content:'';
   position:fixed;
@@ -53,9 +52,7 @@ const pageStyles = `
 .h-page > *{ position:relative; z-index:1; }
 .h-page *{ box-sizing:border-box; }
 
-/* =========================================================
-   EYEBROW
-   ========================================================= */
+/* EYEBROW */
 .cm2-eyebrow{
   display:inline-flex;
   align-items:center;
@@ -69,23 +66,10 @@ const pageStyles = `
   letter-spacing:.22em;
   margin-bottom:18px;
 }
+.cm2-eyebrow::before{ content:'['; color:#a8f8ff; font-family:'Orbitron'; font-weight:900; }
+.cm2-eyebrow::after{ content:']'; color:#a8f8ff; font-family:'Orbitron'; font-weight:900; }
 
-.cm2-eyebrow::before{
-  content:'[';
-  color:#a8f8ff;
-  font-family:'Orbitron', system-ui, sans-serif;
-  font-weight:900;
-}
-.cm2-eyebrow::after{
-  content:']';
-  color:#a8f8ff;
-  font-family:'Orbitron', system-ui, sans-serif;
-  font-weight:900;
-}
-
-/* =========================================================
-   BUTTON (mirrors Home)
-   ========================================================= */
+/* BUTTON */
 .cm2-btn{
   display:inline-flex;
   align-items:center;
@@ -107,7 +91,6 @@ const pageStyles = `
   width:100%;
   overflow:hidden;
 }
-
 .cm2-btn:hover{ transform:translateY(-2px); }
 
 .cm2-btn-primary{
@@ -118,14 +101,12 @@ const pageStyles = `
     0 0 44px rgba(0,229,255,0.25),
     inset 0 0 10px rgba(255,255,255,0.4);
 }
-
 .cm2-btn-primary:hover{
   box-shadow:
     0 0 30px rgba(0,229,255,0.8),
     0 0 60px rgba(0,229,255,0.4),
     inset 0 0 12px rgba(255,255,255,0.55);
 }
-
 .cm2-btn-primary::after{
   content:'';
   position:absolute;
@@ -135,14 +116,8 @@ const pageStyles = `
   transition:transform .5s ease;
 }
 .cm2-btn-primary:hover::after{ transform:translateX(100%); }
+.cm2-btn:disabled{ opacity:0.55; cursor:not-allowed; transform:none; }
 
-.cm2-btn:disabled{
-  opacity:0.55;
-  cursor:not-allowed;
-  transform:none;
-}
-
-/* Corner brackets */
 .cm2-corners{ position:relative; }
 .cm2-corners::before,
 .cm2-corners::after{
@@ -154,18 +129,10 @@ const pageStyles = `
   pointer-events:none;
   z-index:2;
 }
-.cm2-corners::before{
-  top:3px; left:3px;
-  border-right:0; border-bottom:0;
-}
-.cm2-corners::after{
-  bottom:3px; right:3px;
-  border-left:0; border-top:0;
-}
+.cm2-corners::before{ top:3px; left:3px; border-right:0; border-bottom:0; }
+.cm2-corners::after{ bottom:3px; right:3px; border-left:0; border-top:0; }
 
-/* =========================================================
-   LOGIN WRAP + CARD
-   ========================================================= */
+/* LOGIN WRAP + CARD */
 .login-wrap{
   flex:1;
   display:flex;
@@ -175,7 +142,6 @@ const pageStyles = `
   position:relative;
   overflow:hidden;
 }
-
 .login-wrap::before{
   content:'';
   position:absolute;
@@ -186,7 +152,6 @@ const pageStyles = `
   left:-120px;
   pointer-events:none;
 }
-
 .login-wrap::after{
   content:'';
   position:absolute;
@@ -214,8 +179,6 @@ const pageStyles = `
     0 0 120px rgba(255,45,149,.1),
     inset 0 0 60px rgba(0,229,255,.06);
 }
-
-/* HUD corner brackets on card */
 .login-card::before,
 .login-card::after{
   content:'';
@@ -240,19 +203,8 @@ const pageStyles = `
   letter-spacing:.22em;
   margin-bottom:14px;
 }
-
-.login-kicker::before{
-  content:'[';
-  color:#a8f8ff;
-  font-family:'Orbitron', system-ui, sans-serif;
-  font-weight:900;
-}
-.login-kicker::after{
-  content:']';
-  color:#a8f8ff;
-  font-family:'Orbitron', system-ui, sans-serif;
-  font-weight:900;
-}
+.login-kicker::before{ content:'['; color:#a8f8ff; font-family:'Orbitron'; font-weight:900; }
+.login-kicker::after{ content:']'; color:#a8f8ff; font-family:'Orbitron'; font-weight:900; }
 
 .login-title{
   margin:0 0 10px;
@@ -272,9 +224,7 @@ const pageStyles = `
   line-height:1.7;
 }
 
-/* =========================================================
-   ALERTS
-   ========================================================= */
+/* ALERTS */
 .login-alert{
   padding:12px 16px;
   border-radius:6px;
@@ -284,14 +234,12 @@ const pageStyles = `
   letter-spacing:.06em;
   margin-bottom:22px;
 }
-
 .login-alert-error{
   background:rgba(255,45,149,.08);
   border:1px solid rgba(255,45,149,.35);
   color:#ff6bb0;
   box-shadow:inset 0 0 14px rgba(255,45,149,.1);
 }
-
 .login-alert-success{
   background:rgba(182,255,60,.08);
   border:1px solid rgba(182,255,60,.35);
@@ -299,15 +247,63 @@ const pageStyles = `
   box-shadow:inset 0 0 14px rgba(182,255,60,.1);
 }
 
-/* =========================================================
-   FORM
-   ========================================================= */
+/* RESEND BOX */
+.resend-box{
+  margin-top:-10px;
+  margin-bottom:22px;
+  padding:14px 16px;
+  background:rgba(0,229,255,.06);
+  border:1px solid rgba(0,229,255,.3);
+  border-radius:6px;
+  text-align:center;
+}
+.resend-box p{
+  margin:0 0 10px;
+  color:#7d8ba8;
+  font-family:'Chakra Petch', system-ui, sans-serif;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.resend-box button{
+  width:100%;
+  min-height:42px;
+  padding:0 16px;
+  border:none;
+  border-radius:4px;
+  background:linear-gradient(90deg, #00e5ff, #a8f8ff);
+  color:#050510;
+  font-family:'Chakra Petch', system-ui, sans-serif;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:box-shadow .22s ease, transform .18s ease;
+}
+.resend-box button:hover{
+  box-shadow:0 0 22px rgba(0,229,255,.7);
+  transform:translateY(-1px);
+}
+.resend-box button:disabled{ opacity:.55; cursor:not-allowed; transform:none; }
+
+.resend-msg{
+  margin-top:10px !important;
+  color:#b6ff3c !important;
+  font-family:'Inter', system-ui, sans-serif !important;
+  font-size:12px !important;
+  letter-spacing:0 !important;
+  text-transform:none !important;
+  font-weight:500 !important;
+}
+
+/* FORM */
 .login-form{
   display:flex;
   flex-direction:column;
   gap:18px;
 }
-
 .login-form label{
   display:flex;
   flex-direction:column;
@@ -319,7 +315,6 @@ const pageStyles = `
   text-transform:uppercase;
   letter-spacing:.2em;
 }
-
 .login-form input{
   padding:13px 16px;
   background:rgba(0,229,255,.03);
@@ -331,7 +326,6 @@ const pageStyles = `
   outline:none;
   transition:border-color .2s ease, background .2s ease, box-shadow .2s ease;
 }
-
 .login-form input:focus{
   border-color:#00e5ff;
   background:rgba(0,229,255,.06);
@@ -340,16 +334,9 @@ const pageStyles = `
     0 0 22px rgba(0,229,255,.25),
     inset 0 0 10px rgba(0,229,255,.06);
 }
+.login-form input::placeholder{ color:#5a6684; letter-spacing:.02em; }
 
-.login-form input::placeholder{
-  color:#5a6684;
-  letter-spacing:.02em;
-}
-
-.forgot-password-link{
-  margin-top:-6px;
-}
-
+.forgot-password-link{ margin-top:-6px; }
 .forgot-password-link a{
   color:#00e5ff;
   font-family:'Chakra Petch', system-ui, sans-serif;
@@ -360,7 +347,6 @@ const pageStyles = `
   text-decoration:none;
   transition:color .18s ease, text-shadow .18s ease;
 }
-
 .forgot-password-link a:hover{
   color:#a8f8ff;
   text-shadow:0 0 10px rgba(0,229,255,.7);
@@ -376,32 +362,21 @@ const pageStyles = `
   margin-top:26px;
   text-transform:uppercase;
 }
-
 .login-switch a{
   color:#00e5ff;
   text-decoration:none;
   font-weight:800;
   transition:color .18s ease, text-shadow .18s ease;
 }
-
 .login-switch a:hover{
   color:#a8f8ff;
   text-shadow:0 0 10px rgba(0,229,255,.7);
 }
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
 @media (max-width:560px){
-  .login-wrap{
-    padding:46px 18px;
-  }
-  .login-card{
-    padding:30px 22px;
-  }
-  .login-title{
-    font-size:1.7rem;
-  }
+  .login-wrap{ padding:46px 18px; }
+  .login-card{ padding:30px 22px; }
+  .login-title{ font-size:1.7rem; }
 }
 `;
 
@@ -409,26 +384,44 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  // Form state
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
-  // Flash messages
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Email verification states
+  const [unverifiedEmail, setUnverifiedEmail] = useState('');
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendMsg, setResendMsg] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleResend = async () => {
+    setResendLoading(true);
+    setResendMsg('');
+    try {
+      await api.post('/auth/resend-verification', { email: unverifiedEmail });
+      setResendMsg('✅ Verification email sent! Check your inbox.');
+    } catch (err) {
+      setResendMsg(err.response?.data?.message || 'Failed to resend.');
+    } finally {
+      setResendLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    setUnverifiedEmail('');
+    setResendMsg('');
     setLoading(true);
 
     try {
@@ -443,7 +436,14 @@ const Login = () => {
       setSuccess('Login successful!');
       setTimeout(() => navigate('/profile'), 600);
     } catch (err) {
-      setError(err?.response?.data?.message || 'Something went wrong. Please try again.');
+      const data = err?.response?.data;
+
+      if (data?.needsEmailVerification) {
+        setError('Please verify your email first. Check your inbox.');
+        setUnverifiedEmail(formData.email);
+      } else {
+        setError(data?.message || 'Something went wrong. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -462,17 +462,24 @@ const Login = () => {
               Login to continue your chess journey and save your match history.
             </p>
 
-            {/* Error Message */}
             {error && (
               <div className="login-alert login-alert-error">{error}</div>
             )}
 
-            {/* Success Message */}
+            {unverifiedEmail && (
+              <div className="resend-box">
+                <p>Didn't get the email?</p>
+                <button onClick={handleResend} disabled={resendLoading}>
+                  {resendLoading ? 'Sending...' : 'Resend Verification Email'}
+                </button>
+                {resendMsg && <p className="resend-msg">{resendMsg}</p>}
+              </div>
+            )}
+
             {success && (
               <div className="login-alert login-alert-success">{success}</div>
             )}
 
-            {/* Login Form */}
             <form onSubmit={handleSubmit} className="login-form">
               <label>
                 Email
