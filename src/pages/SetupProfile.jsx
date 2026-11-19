@@ -470,15 +470,22 @@ useEffect(() => {
       return;
     }
 
-    setSaving(true);
+       setSaving(true);
     try {
       const data = new FormData();
       Object.entries(formData).forEach(([key, value]) => data.append(key, value));
 
-      const setupToken = localStorage.getItem('pendingSetupToken');
-      if (setupToken) {
-        data.append('setupToken', setupToken);
+      // ✅ Email explicitly add karo (fallback ke liye)
+      const verifiedEmail = localStorage.getItem('verifiedEmail');
+      if (verifiedEmail && !data.get('email')) {
+        data.append('email', verifiedEmail);
       }
+
+      // ❌ setupToken wala purana code hatao
+      // const setupToken = localStorage.getItem('pendingSetupToken');
+      // if (setupToken) {
+      //   data.append('setupToken', setupToken);
+      // }
 
       if (imageFile) data.append('profileImage', imageFile);
 
