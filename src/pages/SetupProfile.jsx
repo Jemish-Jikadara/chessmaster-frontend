@@ -465,6 +465,11 @@ useEffect(() => {
     e.preventDefault();
     setError('');
 
+    if (!formData.email) {
+      setError('Email is required. Please log in again.');
+      return;
+    }
+
     if (!formData.username || formData.username.length < 3 || formData.username.length > 24) {
       setError('Username must be 3-24 characters.');
       return;
