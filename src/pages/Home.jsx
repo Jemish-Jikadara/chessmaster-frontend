@@ -1703,7 +1703,7 @@ const Home = ({ currentUser }) => {
 
       <div className="h-page">
         {/* ================= TICKER ================= */}
-        <div className="h-ticker">
+        {/* <div className="h-ticker">
           <div className="h-ticker-track">
             {tickerContent.map((item, i) => (
               <span key={i} className="h-ticker-item">
@@ -1712,7 +1712,7 @@ const Home = ({ currentUser }) => {
               </span>
             ))}
           </div>
-        </div>
+        </div> */}
 
      
 
@@ -1869,7 +1869,7 @@ const Home = ({ currentUser }) => {
         </section>
 
         {/* ================= LEADERBOARD ================= */}
-        <section className="h-section">
+        {/* <section className="h-section">
           <div className="h-wrap h-leaderboard">
             <div>
               <div className="h-section-label">
@@ -1911,14 +1911,14 @@ const Home = ({ currentUser }) => {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* ================= HOW IT WORKS ================= */}
         <section className="h-section h-how">
           <div className="h-wrap">
             <div className="h-section-head center">
               <div className="h-section-label" style={{ justifyContent: 'center' }}>
-                <span className="num">04</span>
+                <span className="num">03</span>
                 <span>Protocol</span>
               </div>
               <h2 className="h-h2">
