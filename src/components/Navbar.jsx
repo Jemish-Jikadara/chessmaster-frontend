@@ -29,7 +29,7 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/login" className="cn-btn cn-btn-sm cn-btn-outline cn-corners">
-                  Sign In
+                  Login
                 </Link>
                 <Link to="/register" className="cn-btn cn-btn-sm cn-btn-cyber cn-corners">
                   Register
