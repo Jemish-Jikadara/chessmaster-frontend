@@ -17,7 +17,7 @@ const Navbar = () => {
           <ul className="cn-nav-links">
             <li><Link to="/play">Play</Link></li>
             <li><Link to="/online">Online</Link></li>
-            <li><Link to="/leaderboard">Rankings</Link></li>
+            <li><Link to="/leaderboard">Leaderboard</Link></li>
             <li><Link to="/friends">Friends</Link></li>
           </ul>
 
